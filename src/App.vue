@@ -21,7 +21,7 @@ const handleClick = (term: OrderTerm) => {
 </script>
 
 <template>
-  <router-link to="/">Go to Home</router-link>
+  <router-link class="text-red-500" to="/">Go to Home</router-link>
   <router-link to="/about">Go to About</router-link>
   <button @click.stop="handleClick('title')">Order by title</button>
   <button @click.stop="handleClick('salary')">Order by salary</button>
