@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import JobListVue from '../components/Jobs/JobList.vue'
-import Job from '../types/Job'
-import OrderTerm from '../types/OrderTearm'
+import Job from '../types/Jobs/Job'
+import OrderTerm from '../types/Jobs/OrderTearm'
 
 const jobs = ref<Job[]>([
   { title: 'farm', location: 'lon Kra2s', salary: 11111, id: '1' },
