@@ -1,8 +1,8 @@
-type ststusTask = 'Выполнено' | 'В процессе' | 'Отменена'
+import statusTask from './TaskStatus'
 
 interface TaskInterface {
   id: number
   title: string
-  ststus: ststusTask
+  ststus: statusTask
 }
 export default TaskInterface

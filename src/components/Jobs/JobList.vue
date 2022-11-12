@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from '@vue/reactivity'
 import { PropType } from 'vue'
+
 import Job from '../../types/Jobs/Job'
 import OrderTerm from '../../types/Jobs/OrderTearm'
 

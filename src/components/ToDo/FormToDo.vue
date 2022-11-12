@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import TaskInterface from '../../types/ToDo/Task'
 
 const emits = defineEmits(['addTask'])
@@ -11,21 +11,21 @@ const task = reactive<TaskInterface>({
 })
 
 const sendTask = () => {
-  emits('addTask', task)
+  emits('addTask', Object.assign({}, task))
   task.id = Date.now()
   task.title = ''
 }
-// const emitAddTask = () => {
-//   emits('addTask', )
-
-// }
-
 </script>
 <template>
   <form class="form" @submit.prevent="sendTask">
     <div class="input-group rounded-sm bg-neutral-800">
       <label>Задача</label>
-      <input class="bg-neutral-600" type="text" v-model="task.title" />
+      <textarea
+        required
+        class="bg-neutral-600"
+        type="text"
+        v-model="task.title"
+      />
     </div>
     <button class="bg-neutral-800" type="submit">Добавить</button>
   </form>
@@ -38,6 +38,9 @@ const sendTask = () => {
   padding: 10px;
   border-radius: 10px !important;
   margin-bottom: 10px;
+}
+.input-group textarea {
+  border-radius: 10px;
 }
 .form button {
   border-radius: 10px;
