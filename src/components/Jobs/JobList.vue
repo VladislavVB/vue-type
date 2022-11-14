@@ -2,8 +2,8 @@
 import { computed } from '@vue/reactivity'
 import { PropType } from 'vue'
 
-import Job from '../../types/Jobs/Job'
-import OrderTerm from '../../types/Jobs/OrderTearm'
+import Job from '../../types/jobs/Job'
+import OrderTerm from '../../types/jobs/OrderTearm'
 
 import JobItemVue from './JobItem.vue'
 const props = defineProps({

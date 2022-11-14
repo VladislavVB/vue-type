@@ -9,6 +9,12 @@
       >
       <router-link :active-class="'text-lime-600'" to="/jobs">Jobs</router-link>
       <router-link :active-class="'text-lime-600'" to="/todo">ToDo</router-link>
+      <router-link :active-class="'text-lime-600'" :to="{ name: 'Register' }"
+        >Register</router-link
+      >
+      <router-link :active-class="'text-lime-600'" :to="{ name: 'Login' }"
+        >Login</router-link
+      >
     </div>
   </div>
 </template>
