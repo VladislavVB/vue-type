@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import Navbar from './components/Ui/Navbar.vue'
-import { useAuthStore } from './store/auth'
-
-const authStore = useAuthStore()
-onMounted(() => {
-  authStore.getCurrentUser()
-})
+import AppLayot from './layouts/AppLayout.vue'
 </script>
 
 <template>
-  <div class="container mx-auto px-4">
+  <!-- <div class="container mx-auto px-4">
     <Navbar />
 
     <router-view></router-view>
-  </div>
+  </div> -->
+  <main>
+    <AppLayot />
+  </main>
 </template>

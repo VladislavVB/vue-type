@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import Register from '../views/auth/Register.vue'
 import Login from '../views/auth/Login.vue'
@@ -7,17 +7,69 @@ import About from '../views/About.vue'
 import Jsob from '../views/Jobs.vue'
 import ToDo from '../views/ToDo.vue'
 
-const routes = [
-  { path: '/', name: 'Home', component: Home },
-  { path: '/register', name: 'Register', component: Register },
-  { path: '/login', name: 'Login', component: Login },
-  { path: '/about', name: 'About', component: About },
-  { path: '/jobs', name: 'Jsob', component: Jsob },
-  { path: '/todo', name: 'ToDo', component: ToDo },
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
+    meta: {
+      layout: 'AppDefaultLayout',
+    },
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    meta: {
+      layout: 'AppDefaultLayout',
+    },
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    meta: {
+      layout: 'AppDefaultLayout',
+    },
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: About,
+    meta: {
+      layout: 'AppDefaultLayout',
+    },
+  },
+  {
+    path: '/jobs',
+    name: 'Jsob',
+    component: Jsob,
+    meta: {
+      layout: 'AppDefaultLayout',
+    },
+  },
+  {
+    path: '/todo',
+    name: 'ToDo',
+    component: ToDo,
+    meta: {
+      layout: 'AppAuthLayout',
+      requiresAuth: true,
+    },
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !localStorage.getItem('accessToken')) {
+    next({ name: 'Login' })
+  } else {
+    next()
+  }
+})
+
 export default router
