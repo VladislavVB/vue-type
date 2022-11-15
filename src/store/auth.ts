@@ -1,5 +1,6 @@
 import authApi from '../api/auth'
-import authType from '../types/auth/Auth'
+import IAuthType from '../types/auth/Auth'
+import IBooleanType from '../types/defaults/Boolean'
 import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('storeAuth', {
@@ -9,54 +10,74 @@ export const useAuthStore = defineStore('storeAuth', {
       isSubmitng: false,
       curruntUser: null,
       validationErrors: null,
-      isLoggedIn: null,
+      isLoggedIn: null as IBooleanType | null,
     }
   },
   getters: {
-    currentUser: (state) => {
-      return state.curruntUser
-    },
-    isLoggedIn: (state) => {
+    getIsLoggedIn: (state) => {
       return state.isLoggedIn
     },
   },
   actions: {
-    register(sendData: authType) {
+    register(sendData: IAuthType) {
+      this.validationErrors = null
+      this.isLoading = true
       return new Promise((resolve) => {
-        this.isLoading = true
         authApi
           .register(sendData)
           .then((response) => {
+            localStorage.setItem('accessToken', response.data.user.token)
             this.validationErrors = null
-            console.log(response)
+            this.curruntUser = response.data.user
+            this.isLoggedIn = true
+            this.isLoading = false
           })
           .catch((errors) => {
-            console.log(errors)
             this.validationErrors = errors.response.data.errors
-            console.log(this.validationErrors)
+            this.isLoggedIn = false
+            this.isLoading = false
           })
       })
     },
-    login(sendData: authType) {
+    login(sendData: IAuthType) {
+      this.validationErrors = null
+      this.isLoading = true
+
       return new Promise((resolve) => {
-        console.log(resolve);
-        
         this.isLoading = true
         authApi
           .login(sendData)
           .then((response) => {
+            localStorage.setItem('accessToken', response.data.user.token)
             this.validationErrors = null
-            console.log(response)
+            this.curruntUser = response.data.user
+            this.isLoggedIn = true
+            this.isLoading = false
           })
           .catch((errors) => {
-            console.log(errors)
             this.validationErrors = errors.response.data.errors
-            console.log(this.validationErrors)
+            this.isLoggedIn = false
+            this.isLoading = false
           })
       })
-    }
-    // addTask(task) {
-    //   this.tasks.unshift(task)
-    // },
+    },
+    getCurrentUser() {
+      this.validationErrors = null
+      this.isLoading = true
+
+      return new Promise((resolve) => {
+        authApi
+          .getCurrentUser()
+          .then((response) => {
+            this.isLoggedIn = true
+            this.curruntUser = response.data.user
+          })
+          .catch((errors) => {
+            this.isLoggedIn = false
+            this.isLoading = false
+            console.log(errors)
+          })
+      })
+    },
   },
 })

@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAuthStore } from '../../store/auth'
+
+const authStore = useAuthStore()
+</script>
 
 <template>
   <div class="navbar bg-neutral-800">
@@ -15,6 +19,7 @@
       <router-link :active-class="'text-lime-600'" :to="{ name: 'Login' }"
         >Login</router-link
       >
+      {{authStore.getIsLoggedIn}}
     </div>
   </div>
 </template>

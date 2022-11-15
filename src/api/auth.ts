@@ -9,7 +9,12 @@ const login = (data: IAuthType) => {
   return axios.post('/users/login', { user: data })
 }
 
+const getCurrentUser = () => {
+  return axios.get('/user')
+}
+
 export default {
+  getCurrentUser,
   register,
-  login
+  login,
 }
