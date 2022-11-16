@@ -1,28 +1,18 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-
 import { useAuthStore } from '../../store/auth'
-
-import authType from '../../types/auth/Auth'
-
+import IAuthType from '../../types/auth/IAuthType'
 import FormItemVue from '../../components/formItmes/FormItem.vue'
 
 const authStore = useAuthStore()
 
-const loginDate = reactive<authType>({
+const loginDate = reactive<IAuthType>({
   email: '',
   password: '',
 })
 
 const submitForm = () => {
-  authStore
-    .login(loginDate)
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  authStore.login(loginDate)
 }
 </script>
 <template>

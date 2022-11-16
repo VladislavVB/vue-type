@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-
-import authType from '../../types/auth/Auth'
-
 import { useAuthStore } from '../../store/auth'
-
+import IAuthType from '../../types/auth/IAuthType'
 import FormItemVue from '../../components/formItmes/FormItem.vue'
 
 const authStore = useAuthStore()
 
-const registerData = reactive<authType>({
+const registerData = reactive<IAuthType>({
   username: '',
   email: '',
   password: '',
@@ -18,10 +15,6 @@ const registerData = reactive<authType>({
 const submitForm = () => {
   authStore
     .register(registerData)
-    .then((res) => console.log(res))
-    .catch((err) => {
-      console.log(err)
-    })
 }
 </script>
 <template>

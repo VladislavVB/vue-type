@@ -1,7 +1,7 @@
-export interface auth {
+export interface IAuthType {
   username?: string
   email: string
   password: string | number
 }
 
-export default auth
+export default IAuthType

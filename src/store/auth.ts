@@ -1,5 +1,5 @@
 import authApi from '../api/auth'
-import IAuthType from '../types/auth/Auth'
+import IAuthType from '../types/auth/IAuthType'
 import IBooleanType from '../types/defaults/Boolean'
 import { defineStore } from 'pinia'
 
@@ -75,7 +75,6 @@ export const useAuthStore = defineStore('storeAuth', {
           .catch((errors) => {
             this.isLoggedIn = false
             this.isLoading = false
-            console.log(errors)
           })
       })
     },
