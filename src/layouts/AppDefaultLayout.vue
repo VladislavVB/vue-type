@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '../store/auth'
 
 const authStore = useAuthStore()
+const router = useRouter()
+const logout = () => {
+  localStorage.removeItem('accessToken')
+  router.push('/')
+}
 </script>
 
 <template>
@@ -19,11 +25,13 @@ const authStore = useAuthStore()
       <router-link :active-class="'text-lime-600'" :to="{ name: 'Login' }"
         >Login</router-link
       >
-      {{authStore.getIsLoggedIn}}
+      {{ authStore.getIsLoggedIn }}
+      <span @click="logout">Exit</span>
     </div>
   </div>
   <slot />
 </template>
+
 <style>
 .navbar {
   position: fixed;

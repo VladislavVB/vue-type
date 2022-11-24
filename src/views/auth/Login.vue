@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { reactive } from 'vue'
 import { useAuthStore } from '../../store/auth'
 import IAuthType from '../../types/auth/IAuthType'
 import FormItemVue from '../../components/formItmes/FormItem.vue'
 
 const authStore = useAuthStore()
+const router = useRouter()
 
 const loginDate = reactive<IAuthType>({
   email: '',
@@ -23,7 +25,7 @@ const submitForm = () => {
         :errors="authStore.validationErrors"
         class="input-group"
       >
-        <input v-model="loginDate.email" placeholder="Email" type="email" />
+        <input v-model="loginDate.email" placeholder="Email" />
       </FormItemVue>
       <FormItemVue
         :name="'password'"

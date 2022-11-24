@@ -1,6 +1,7 @@
 import authApi from '../api/auth'
 import IAuthType from '../types/auth/IAuthType'
 import IBooleanType from '../types/defaults/Boolean'
+import CurrentUserInterfase from '../types/user/CurrentUserInterfase'
 import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('storeAuth', {
@@ -8,7 +9,7 @@ export const useAuthStore = defineStore('storeAuth', {
     return {
       isLoading: false,
       isSubmitng: false,
-      curruntUser: null,
+      curruntUser: null as CurrentUserInterfase | null,
       validationErrors: null,
       isLoggedIn: null as IBooleanType | null,
     }
@@ -69,8 +70,10 @@ export const useAuthStore = defineStore('storeAuth', {
         authApi
           .getCurrentUser()
           .then((response) => {
-            this.isLoggedIn = true
+            this.validationErrors = null
             this.curruntUser = response.data.user
+            this.isLoggedIn = true
+            this.isLoading = false
           })
           .catch((errors) => {
             this.isLoggedIn = false

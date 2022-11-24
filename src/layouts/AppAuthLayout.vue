@@ -1,13 +1,19 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '../store/auth'
 
 const authStore = useAuthStore()
+const router = useRouter()
+const logout = () => {
+  localStorage.removeItem('accessToken')
+  router.push('/')
+}
 </script>
 
 <template>
   <div class="navbar bg-neutral-800">
     <div class="container mx-auto px-4">
-      <h1>You Auth</h1>
+      <span>Auth </span>
       <router-link :active-class="'text-lime-600'" to="/">Home</router-link>
       <router-link :active-class="'text-lime-600'" to="/about"
         >About</router-link
@@ -21,6 +27,7 @@ const authStore = useAuthStore()
         >Login</router-link
       >
       {{ authStore.getIsLoggedIn }}
+      <span @click="logout">Exit</span>
     </div>
   </div>
   <slot />
