@@ -6,11 +6,12 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Jsob from '../views/Jobs.vue'
 import ToDo from '../views/ToDo.vue'
+import WeatherIndex from '../views/wather/Index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home,
     meta: {
       layout: 'AppDefaultLayout',
@@ -57,7 +58,18 @@ const routes: Array<RouteRecordRaw> = [
       requiresAuth: true,
     },
   },
+  {
+    path: '/weather',
+    name: 'Weather',
+    component: WeatherIndex,
+    meta: {
+      layout: 'AppWeatcherLayuot',
+      requiresAuth: false,
+    },
+  },
 ]
+
+
 
 const router = createRouter({
   history: createWebHistory(),
