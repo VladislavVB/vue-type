@@ -7,6 +7,7 @@ import About from '../views/About.vue'
 import Jsob from '../views/Jobs.vue'
 import ToDo from '../views/ToDo.vue'
 import WeatherIndex from '../views/wather/Index.vue'
+import WeatherCity from '../views/wather/WeatherCity.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -63,7 +64,16 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Weather',
     component: WeatherIndex,
     meta: {
-      layout: 'AppWeatcherLayuot',
+      layout: 'AppWeatherLayuot',
+      requiresAuth: false,
+    },
+  },
+  {
+    path: '/weather/:region/:city',
+    name: 'WeatherCity',
+    component: WeatherCity,
+    meta: {
+      layout: 'AppWeatherLayuot',
       requiresAuth: false,
     },
   },
