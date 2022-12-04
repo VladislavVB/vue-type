@@ -13,6 +13,7 @@ const logout = () => {
 <template>
   <div class="navbar bg-neutral-800">
     <div class="container mx-auto px-4">
+      <router-link :active-class="'text-lime-600'" :to="{name: 'Weather'}" >Weather</router-link>
       <router-link :active-class="'text-lime-600'" to="/">Home</router-link>
       <router-link :active-class="'text-lime-600'" to="/about"
         >About</router-link
