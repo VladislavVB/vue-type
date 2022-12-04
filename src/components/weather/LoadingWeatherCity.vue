@@ -15,24 +15,30 @@
       <p class="text-sm mb-12">
         {{
           new Date(weatherStore.getWeather?.currentTime).toLocaleDateString(
-            "en-us",
+            'en-us',
             {
-              weekday: "short",
-              day: "2-digit",
-              month: "long",
+              weekday: 'short',
+              day: '2-digit',
+              month: 'long',
             }
           )
         }}
         {{
           new Date(weatherStore.getWeather?.currentTime).toLocaleTimeString(
-            "en-us",
+            'en-us',
             {
-              timeStyle: "short",
+              timeStyle: 'short',
             }
           )
         }}
       </p>
-      <p  class="text-8xl mb-8">{{formatterHelp.conversionDegrees(weatherStore.getWeather?.current?.temp)}}</p>
+      <p class="text-8xl mb-8">
+        {{
+          formatterHelp.conversionDegrees(
+            weatherStore.getWeather?.current?.temp
+          )
+        }}&deg
+      </p>
     </div>
 
     <hr class="border-white border-opacity-10 border w-full" />
@@ -40,9 +46,30 @@
     <!-- Hourly Weather -->
     <div class="max-w-screen-md w-full py-12">
       <div class="mx-8 text-white">
-        <h2 class="mb-4">Hourly Weather</h2>
+        <h2 class="mb-4">Почасовая погода</h2>
         <div class="flex gap-10 overflow-x-scroll">
-          
+          <div
+            v-for="hourData in weatherStore.getWeather?.hourly"
+            :key="hourData.dt"
+            class="flex flex-col gap-4 items-center"
+          >
+            <p class="whitespace-nowrap text-md">
+              {{
+                new Date(hourData.currentTime).toLocaleTimeString('ru-ru', {
+                  hour: 'numeric',
+                })
+              }}
+              ⌚
+            </p>
+            <img
+              class="w-auto h-[50px] object-cover"
+              :src="`http://openweathermap.org/img/wn/${hourData.weather[0].icon}@2x.png`"
+              alt=""
+            />
+            <p class="text-xl">
+              {{ formatterHelp.conversionDegrees(hourData.temp) }}&deg;
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -52,32 +79,37 @@
     <!-- Weekly Weather -->
     <div class="max-w-screen-md w-full py-12">
       <div class="mx-8 text-white">
-        <h2 class="mb-4">7 Day Forecast</h2>
+        <h2 class="mb-4">Прогноз на 7 дней вперед</h2>
         <div
           v-for="day in weatherStore.getWeather.daily"
           :key="day.dt"
           class="flex items-center"
         >
-          <p class="flex-1">
+          <p class="flex-1 capitalize">
             {{
-              new Date(day.dt * 1000).toLocaleDateString(
-                "ru-Ru",
-                {
-                  weekday: "long",
-                }
-              )
+              new Date(day.dt * 1000).toLocaleDateString('ru', {
+                weekday: 'long',
+              })
             }}
           </p>
           <img
             class="w-[50px] h-[50px] object-cover"
-            :src="
-              `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`
-            "
+            :src="`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`"
             alt=""
           />
           <div class="flex gap-2 flex-1 justify-end bar__weather-minmax">
-            <p>Макс: {{ Math.round(formatterHelp.conversionDegrees(day.temp.max)) }}</p>
-            <p>Мин: {{ Math.round(formatterHelp.conversionDegrees(day.temp.min)) }}</p>
+            <p>
+              <span>Макс:</span>
+              {{
+                Math.round(formatterHelp.conversionDegrees(day.temp.max))
+              }}&deg
+            </p>
+            <p>
+              <span>Мин:</span>
+              {{
+                Math.round(formatterHelp.conversionDegrees(day.temp.min))
+              }}&deg
+            </p>
           </div>
         </div>
         {{}}
@@ -97,7 +129,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useWeatherStore } from '../../store/weather'
-import formatter from '../../helpers/formatter';
+import formatter from '../../helpers/formatter'
 
 const route = useRoute()
 console.log(route.query.lat)
@@ -109,15 +141,7 @@ weatherStore.getWeatherCity({
   lat: route.query.lat,
   lng: route.query.lng,
 })
-console.log(formatterHelp);
+console.log(formatterHelp)
 
-console.log(weatherStore.getWeather);
-
+console.log(weatherStore.getWeather)
 </script>
-<style lang="sss" scoped>
-.bar__weather-minmax {
-  p {
-    min-width: 54px;
-  }
-}
-</style>

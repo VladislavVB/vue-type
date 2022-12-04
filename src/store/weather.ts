@@ -26,8 +26,17 @@ export const useWeatherStore = defineStore('storeWeather', {
   actions: {
     getWeatherCity(sendDate: any) {
       weatherApi.getWeather(sendDate).then(async (response: any) => {
-        this.resultWeather = await response.json()
-        console.log(this.resultWeather)
+        const res = await response.json()
+        const localOffset = new Date().getTimezoneOffset() * 60000
+        const utc = res.current.dt * 1000 + localOffset
+        res.currentTime = utc + 1000 * res.timezone_offset
+
+        res.hourly.forEach((hour: any) => {
+          const utc = hour.dt * 1000 + localOffset;
+          hour.currentTime =
+            utc + 1000 * res.timezone_offset;
+        });
+        this.resultWeather = res
       })
     },
     getSearchCity(city: string) {
